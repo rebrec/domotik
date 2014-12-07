@@ -7,6 +7,14 @@ import time
 
 class SerialCommunicator(object):
     def __init__(self, device, speed, cmd_timeout, send_interval, debug = False):
+        """
+        :param device: ex: /dev/ttyUSB0
+        :param speed: ex: 9600
+        :param cmd_timeout: timout after which function will return even if it didn't worked
+        :param send_interval: interval for sending commands
+        :param debug: debug flag (default is False)
+        :return:
+        """
         self.connection = serial.Serial(device, speed)
         self.cmd_timeout = cmd_timeout
         self.send_interval = send_interval
