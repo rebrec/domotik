@@ -27,13 +27,17 @@ class SerialCommunicator(object):
             print "Problème de fermeture de la liaison", self.connection
 
     def send_while(self, cmd, until, max_delay = -1):
+        self.connection.write('\r')
         if max_delay <0: max_delay = self.cmd_timeout # crappy way of managing default value
-        start=end=time.time()
-        while self.connection.readline() != until and end-start<max_delay:
+        start = end = time.time()
+        line = self.connection.readline()
+        while line.splitlines()[0] != until and end-start<max_delay:
             if self.debug:
                 print "Sending {0} ... until {1}".format(cmd.strip(), until)
             self.connection.write(cmd)
             time.sleep(self.send_interval)
+            line = self.connection.readline()
+            print 'Data receivend : {0}'.format(line)
             end = time.time()
         if end-start > self.cmd_timeout:
             if self.debug:
@@ -50,13 +54,10 @@ if __name__ == '__main__':
         s.send("OFF\r".encode())
         while(True):
             print "on"
-            s.send_while('OFF\r', 'Commande : OFF\r\n', 3)
-            print "sleep"
-            time.sleep(1)
+            s.send_while('I {0} {1} {2}\r'.format('C', 2, '1'), '.')
             print "off"
-            s.send_while('ON\r', 'Commande : ON\r\n', 3)
-            print "sleep"
-            time.sleep(1)
+            s.send_while('I {0} {1} {2}\r'.format('C', 2, '0'), '.')
+
     except KeyboardInterrupt:
         print '^C received, shutting down the web server'
         s.close()

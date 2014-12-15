@@ -3,18 +3,28 @@
     <head>
         <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
         <style>
+            .on {
+                background-color: green;
+            }
+
+            .off {
+                background-color: black;
+            }
 
             .button {
                 width: 100%;
                 height: 800px;
-                display: inline-block
+                display: inline-block;
             }
         </style>
         <script type="text/javascript">
                 $().ready(function(){
                     $('#lampedevant').click(function(){
+                        $('#lampedevant').toggleClass('on');
+                        $('#lampedevant').toggleClass('off');
+
                         $.get(
-                            '/inter/set/?name=LampeDevant&cmd=toggle', // Le fichier cible côté serveur.
+                            'inter/set/?name=LampeDevant&cmd=toggle', // Le fichier cible côté serveur.
                             'false', // Nous utilisons false, pour dire que nous n'envoyons pas de données.
                             function (state){},
                             'json' // Format des données reçues.
@@ -22,14 +32,17 @@
                     });
                     setInterval(function update_data(){
                         $.get(
-                            '/inter/get/?name=LampeDevant', // Le fichier cible côté serveur.
+                            'inter/get/?name=LampeDevant', // Le fichier cible côté serveur.
                             'false', // Nous utilisons false, pour dire que nous n'envoyons pas de données.
                             function (data){
                                 console.log(data);
                                 if (data['state'] == true){
-                                    $('#lampedevant').css('background-color','green');
+                                    $('#lampedevant').addClass('on');
+                                    $('#lampedevant').removeClass('off');
+
                                 } else {
-                                    $('#lampedevant').css('background-color','black');
+                                    $('#lampedevant').addClass('off');
+                                    $('#lampedevant').removeClass('on');
                                 }
 
                             },
@@ -46,6 +59,6 @@
     </head>
     <body>
         <h1>Eclairage devant</h1>
-        <div id="lampedevant" class="button">&nbsp </div>
+        <div id="lampedevant" class="button off">&nbsp </div>
     </body>
 </html>

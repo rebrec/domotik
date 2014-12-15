@@ -35,20 +35,17 @@ class Controller:
 
 if __name__ == '__main__':
     def devant_maison_on(array_args):
-        adr = array_args['adr']
+        chan = array_args['chan']
         sw = array_args['sw']
-        ser = array_args['s']
-        s.send_while('ON\r', 'Commande : ON\r\n')
-
-
+        s = array_args['s']
+        s.send_while('I {0} {1} {2}\r'.format(chan, sw, '1'), '.')
     def devant_maison_off(array_args):
-        ser = array_args['s']
-        s.send_while('OFF\r', 'Commande : OFF\r\n')
-
-
-
-    s = SerialCommunicator('/dev/ttyUSB0', 9600, 3, 1, True)
-    i = Interrupteur('LampeDevant', devant_maison_on, devant_maison_off, {'s': s, 'adr': 1, 'sw': 10})
+        chan = array_args['chan']
+        sw = array_args['sw']
+        s = array_args['s']
+        s.send_while('I {0} {1} {2}\r'.format(chan, sw, '0'), '.')
+    s = SerialCommunicator('/dev/ttyUSB1', 9600, 3, 1, True)
+    i = Interrupteur('LampeDevant', devant_maison_on, devant_maison_off, {'s': s, 'chan': 'C', 'sw': 3})
     v = WebView()
     c = Controller(s, v)
     c.add_inter(i)
