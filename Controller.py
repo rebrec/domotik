@@ -3,6 +3,7 @@
 from Communicator import SerialCommunicator
 from Interrupteur import Interrupteur
 from View import WebView
+import re
 
 
 class Controller:
@@ -23,14 +24,26 @@ class Controller:
         l = [switch.name for switch in self.switches]
         return self.switches.__getitem__(l.index(name))
 
+    def get_switch_list_view(self):
+        return  [(switch.name, switch.caption) for switch in self.switches]
+
+
+
+
     def set_inter(self, name, cmd):
         if   cmd.lower() == 'on':       self.get_switch(name).set_on()
         elif cmd.lower() == 'off':      self.get_switch(name).set_off()
         elif cmd.lower() == 'toggle':   self.get_switch(name).toggle()
         return { 'result': 'done'}
 
-    def get_inter(self, name):
-        return {'state': self.get_switch(name).state}
+    def get_inter(self, name, all):
+        if all:
+            res = {}
+            for switch in self.switches:
+                res[switch.name] = switch.state
+            return res
+        else:
+            return {'state': self.get_switch(name).state}
 
 
 if __name__ == '__main__':
@@ -48,6 +61,7 @@ if __name__ == '__main__':
 
     v = WebView(8080)
     c = Controller(s, v)
-    c.add_inter(Interrupteur('LampeDevant', devant_maison_on, devant_maison_off, {'s': s, 'chan': 'C', 'sw': 3}))
-    c.add_inter(Interrupteur('i2', devant_maison_on, devant_maison_off, {'s': s, 'chan': 'C', 'sw': 2}))
+    c.add_inter(Interrupteur('Lampe Extérieur', devant_maison_on, devant_maison_off, {'s': s, 'chan': 'C', 'sw': 3}))
+    c.add_inter(Interrupteur('Sapin de Noel', devant_maison_on, devant_maison_off, {'s': s, 'chan': 'C', 'sw': 2}))
+    print c.get_switch_list_view()
     c.start()

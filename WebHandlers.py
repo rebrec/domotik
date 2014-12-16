@@ -11,7 +11,8 @@ class GetInterHandler(tornado.web.RequestHandler):
 
     def get(self):
         name = self.get_argument("name", None, True)
-        res = self.controller.get_inter(name)
+        all = self.get_argument("all", False, True)
+        res = self.controller.get_inter(name, all)
         self.write(res)
 
 
@@ -30,6 +31,10 @@ class SetInterHandler(tornado.web.RequestHandler):
 
 
 class DefaultHandler(tornado.web.RequestHandler):
+    def initialize(self, controller):
+        self.controller = controller
+
     def get(self):
         print "REQUETE MAIN"
-        self.render("index.html")
+        get_switch_list_view = self.controller.get_switch_list_view()
+        self.render("index.html", get_switch_list_view=get_switch_list_view )

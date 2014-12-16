@@ -1,9 +1,11 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+import re
 
 class Interrupteur(object):
     def __init__(self, name, func_cmd_on, func_cmd_off, array_args={}):
-        self.name = name
+        self.name = "sw-{0}".format(re.sub(r'\W+', '', name.lower()))
+        self.caption = name
         self.func_cmd_on = func_cmd_on
         self.func_cmd_off = func_cmd_off
         self.array_args = array_args

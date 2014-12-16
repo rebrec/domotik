@@ -8,20 +8,49 @@
         <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
         <link href="static/css/main.css" rel="stylesheet">
         <script src="static/js/main.js"></script>
+        <script type="text/javascript">
+            $arrSwitch = [
+            {% for switch in get_switch_list_view %}
+                {'name': '{{ switch[0] }}', 'caption': '{{ switch[1] }}' },
+            {% end %}
+            ];
+            $().ready(function(){
+                $.each($arrSwitch, function(index, sw){
+
+                    $tag  = '';
+                    $tag += '<h1>' + sw.caption + '</h1>';
+                    $tag += '<div class="btn-group btn-toggle" data-sensor="' + sw.name + '">';
+                    $tag += '    <button class="' + sw.name + ' btn btn-lg btn-default">ON</button>';
+                    $tag += '    <button class="' + sw.name + ' btn btn-lg btn-primary active">OFF</button>';
+                    $tag += '</div>';
+                    $tag += '<hr>';
+                    $('#switchlist').append($tag);
+                });
+
+                $('.btn-toggle').click(function() {
+                    $(this).find('.btn').toggleClass('active');
+                    $(this).find('.btn').toggleClass('btn-primary');
+                    $(this).find('.btn').toggleClass('btn-default');
+                    $sensor = $(this).data("sensor");
+
+                    $.get(
+                        'inter/set/?name=' + $sensor + '&cmd=toggle', // Le fichier cible côté serveur.
+                        'false', // Nous utilisons false, pour dire que nous n'envoyons pas de données.
+                        function (state){},
+                        'json' // Format des données reçues.
+                        );
+                });
+
+            });
+
+        </script>
     </head>
     <body>
+        <div id="switchlist">
 
-        <h1>Eclairage devant</h1>
-        <div class="btn-group btn-toggle" data-sensor="LampeDevant">
-            <button class="lampedevant btn btn-lg btn-default">ON</button>
-            <button class="lampedevant btn btn-lg btn-primary active">OFF</button>
+
         </div>
-        <hr>
-        <h1>Interrupteur 2</h1>
-        <div class="btn-group btn-toggle" data-sensor="i2">
-            <button class="i2 btn btn-lg btn-default">ON</button>
-            <button class="i2 btn btn-lg btn-primary active">OFF</button>
-        </div>
+
 
         <script src="static/js/bootstrap.min.js"></script>
     </body>

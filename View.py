@@ -22,8 +22,8 @@ class WebView(object):
             'static_path': os.path.join(os.getcwd(), 'static'),
         }
         handlers = [
-                        (r"/", DefaultHandler),
-                        (r"/index.html", DefaultHandler),
+                        (r"/", DefaultHandler, dict(controller=self.controller)),
+                        (r"/index.html", DefaultHandler, dict(controller=self.controller)),
                         (r"/inter/get/.*", GetInterHandler, dict(controller=self.controller)),
                         (r"/inter/set/.*", SetInterHandler, dict(controller=self.controller)),
                         (r'/static/(.*)', tornado.web.StaticFileHandler, dict(path=settings['static_path'])),
