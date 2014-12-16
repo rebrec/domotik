@@ -40,6 +40,32 @@ $().ready(function(){
             },
             'json' // Format des données reçues.
         );
+
+        $.get(
+            'inter/get/?name=i2', // Le fichier cible côté serveur.
+            'false', // Nous utilisons false, pour dire que nous n'envoyons pas de données.
+            function (data){
+                console.log(data);
+                if (data['state'] == true){
+                    $('.i2:contains("ON")').addClass('active');
+                    $('.i2:contains("ON")').addClass('btn-primary');
+                    $('.i2:contains("ON")').removeClass('default');
+                    $('.i2:contains("OFF")').removeClass('active');
+                    $('.i2:contains("OFF")').removeClass('btn-primary');
+                    $('.i2:contains("OFF")').addClass('default');
+
+                } else {
+                    $('.i2:contains("OF")').addClass('active');
+                    $('.i2:contains("OF")').addClass('btn-primary');
+                    $('.i2:contains("OF")').removeClass('default');
+                    $('.i2:contains("ON")').removeClass('active');
+                    $('.i2:contains("ON")').removeClass('btn-primary');
+                    $('.i2:contains("ON")').addClass('default');
+                }
+
+            },
+            'json' // Format des données reçues.
+        );
     },2000);
 
 /***************************************************************************/
