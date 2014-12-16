@@ -46,7 +46,7 @@ if __name__ == '__main__':
         s.send_while('I {0} {1} {2}\r'.format(chan, sw, '0'), '.')
     s = SerialCommunicator('/dev/ttyUSB1', 9600, 3, 1, True)
     i = Interrupteur('LampeDevant', devant_maison_on, devant_maison_off, {'s': s, 'chan': 'C', 'sw': 3})
-    v = WebView()
+    v = WebView(8080)
     c = Controller(s, v)
     c.add_inter(i)
     c.start()
