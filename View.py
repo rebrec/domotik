@@ -60,7 +60,7 @@ if __name__ == '__main__':
             return "Set {} : {} / {}".format(cmd, address, number)
 
     c = Controller()
-    v = WebView()
+    v = WebView(8080)
     v.add_controller(c)
     v.start()
 
