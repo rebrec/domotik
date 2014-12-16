@@ -29,7 +29,7 @@ class SetInterHandler(tornado.web.RequestHandler):
 
 
 
-class MainHandler(tornado.web.RequestHandler):
+class DefaultHandler(tornado.web.RequestHandler):
     def get(self):
         print "REQUETE MAIN"
         self.render("index.html")

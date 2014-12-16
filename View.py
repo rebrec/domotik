@@ -4,8 +4,8 @@
 
 import tornado.ioloop
 import tornado.web
-from WebHandlers import MainHandler, GetInterHandler, SetInterHandler
-
+from WebHandlers import DefaultHandler, GetInterHandler, SetInterHandler
+import os
 
 class WebView(object):
     def __init__(self, port=8888, controller = None):
@@ -17,12 +17,18 @@ class WebView(object):
         self.init_webapp()
 
     def init_webapp(self):
-        self.application = tornado.web.Application([
-                                            (r"/", MainHandler),
-                                            (r"/index.html", MainHandler),
-                                            (r"/inter/get/.*", GetInterHandler, dict(controller=self.controller)),
-                                            (r"/inter/set/.*", SetInterHandler, dict(controller=self.controller)),
-                                         ])
+        settings = {
+            'debug': True,
+            'static_path': os.path.join(os.getcwd(), 'static'),
+        }
+        handlers = [
+                        (r"/", DefaultHandler),
+                        (r"/index.html", DefaultHandler),
+                        (r"/inter/get/.*", GetInterHandler, dict(controller=self.controller)),
+                        (r"/inter/set/.*", SetInterHandler, dict(controller=self.controller)),
+                        (r'/static/(.*)', tornado.web.StaticFileHandler, dict(path=settings['static_path'])),
+                     ]
+        self.application = tornado.web.Application(handlers, **settings)
         self.application.listen(self.port)
 
     def start(self):
