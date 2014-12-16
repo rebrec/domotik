@@ -44,8 +44,7 @@ if __name__ == '__main__':
         sw = array_args['sw']
         s = array_args['s']
         s.send_while('I {0} {1} {2}\r'.format(chan, sw, '0'), '.')
-    s = SerialCommunicator('/dev/ttyUSB0:q!'
-                           '', 9600, 3, 1, True)
+    s = SerialCommunicator('/dev/ttyUSB0', 9600, 3, 1, True)
     i = Interrupteur('LampeDevant', devant_maison_on, devant_maison_off, {'s': s, 'chan': 'C', 'sw': 3})
     v = WebView(8080)
     c = Controller(s, v)
