@@ -54,17 +54,17 @@ if __name__ == '__main__':
         chan = array_args['chan']
         sw = array_args['sw']
         params = 'I {0} {1} {2}'.format(chan, sw, '1')
-        cmd = "{0}/send".format(os.path.dirname(os.path.realpath(__file__)))
+        cmd = "{0}/send {1}".format(os.path.dirname(os.path.realpath(__file__)), params)
         print "Going to launch {0} with parameters : {1}".format(cmd, params)
-        call([cmd, params])
+        call([cmd], shell=True)
         #s.send_while('I {0} {1} {2}\r'.format(chan, sw, '1'), '.')
     def devant_maison_off(array_args):
         chan = array_args['chan']
         sw = array_args['sw']
         params = 'I {0} {1} {2}'.format(chan, sw, '0')
-        cmd = "{0}/send".format(os.path.dirname(os.path.realpath(__file__)))
+        cmd = "{0}/send {1}".format(os.path.dirname(os.path.realpath(__file__)), params)
         print "Going to launch {0} with parameters : {1}".format(cmd, params)
-        call([cmd, params])
+        call([cmd], shell=True)
 
         #s.send_while('I {0} {1} {2}\r'.format(chan, sw, '0'), '.')
 
