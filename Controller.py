@@ -53,17 +53,19 @@ if __name__ == '__main__':
     def devant_maison_on(array_args):
         chan = array_args['chan']
         sw = array_args['sw']
-        params = 'I {0} {1} {2}\r'.format(chan, sw, '1')
+        params = 'I {0} {1} {2}'.format(chan, sw, '1')
         cmd = "{0}/send".format(os.path.dirname(os.path.realpath(__file__)))
+        print "Going to launch {0} with parameters : {1}".format(cmd, params)
         call([cmd, params])
         #s.send_while('I {0} {1} {2}\r'.format(chan, sw, '1'), '.')
     def devant_maison_off(array_args):
         chan = array_args['chan']
         sw = array_args['sw']
-        params = 'I {0} {1} {2}\r'.format(chan, sw, '0')
+        params = 'I {0} {1} {2}'.format(chan, sw, '0')
         cmd = "{0}/send".format(os.path.dirname(os.path.realpath(__file__)))
+        print "Going to launch {0} with parameters : {1}".format(cmd, params)
         call([cmd, params])
-        
+
         #s.send_while('I {0} {1} {2}\r'.format(chan, sw, '0'), '.')
 
     #s = SerialCommunicator('/dev/ttyUSB0', 9600, 3, 1, True)
