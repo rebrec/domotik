@@ -4,6 +4,7 @@ from Communicator import SerialCommunicator
 from Interrupteur import Interrupteur
 from View import WebView
 from subprocess import call
+import os
 
 import re
 
@@ -53,14 +54,16 @@ if __name__ == '__main__':
         chan = array_args['chan']
         sw = array_args['sw']
         params = 'I {0} {1} {2}\r'.format(chan, sw, '1')
-        call(["send", params])
+        cmd = "{0}/send".format(os.path.dirname(os.path.realpath(__file__)))
+        call([cmd, params])
         #s.send_while('I {0} {1} {2}\r'.format(chan, sw, '1'), '.')
     def devant_maison_off(array_args):
         chan = array_args['chan']
         sw = array_args['sw']
         params = 'I {0} {1} {2}\r'.format(chan, sw, '0')
-        call(["send", params])
-
+        cmd = "{0}/send".format(os.path.dirname(os.path.realpath(__file__)))
+        call([cmd, params])
+        
         #s.send_while('I {0} {1} {2}\r'.format(chan, sw, '0'), '.')
 
     #s = SerialCommunicator('/dev/ttyUSB0', 9600, 3, 1, True)
