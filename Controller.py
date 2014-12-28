@@ -52,14 +52,12 @@ if __name__ == '__main__':
     def devant_maison_on(array_args):
         chan = array_args['chan']
         sw = array_args['sw']
-        s = array_args['s']
         params = 'I {0} {1} {2}\r'.format(chan, sw, '1')
         call(["send", params])
         #s.send_while('I {0} {1} {2}\r'.format(chan, sw, '1'), '.')
     def devant_maison_off(array_args):
         chan = array_args['chan']
         sw = array_args['sw']
-        s = array_args['s']
         params = 'I {0} {1} {2}\r'.format(chan, sw, '0')
         call(["send", params])
 
