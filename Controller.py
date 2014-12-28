@@ -3,6 +3,8 @@
 from Communicator import SerialCommunicator
 from Interrupteur import Interrupteur
 from View import WebView
+from subprocess import call
+
 import re
 
 
@@ -51,17 +53,22 @@ if __name__ == '__main__':
         chan = array_args['chan']
         sw = array_args['sw']
         s = array_args['s']
-        s.send_while('I {0} {1} {2}\r'.format(chan, sw, '1'), '.')
+        params = 'I {0} {1} {2}\r'.format(chan, sw, '1')
+        call(["send", params])
+        #s.send_while('I {0} {1} {2}\r'.format(chan, sw, '1'), '.')
     def devant_maison_off(array_args):
         chan = array_args['chan']
         sw = array_args['sw']
         s = array_args['s']
-        s.send_while('I {0} {1} {2}\r'.format(chan, sw, '0'), '.')
-    s = SerialCommunicator('/dev/ttyUSB0', 9600, 3, 1, True)
+        params = 'I {0} {1} {2}\r'.format(chan, sw, '0')
+        call(["send", params])
 
+        #s.send_while('I {0} {1} {2}\r'.format(chan, sw, '0'), '.')
+
+    #s = SerialCommunicator('/dev/ttyUSB0', 9600, 3, 1, True)
     v = WebView(8080)
-    c = Controller(s, v)
-    c.add_inter(Interrupteur('Lampe Extérieur', devant_maison_on, devant_maison_off, {'s': s, 'chan': 'C', 'sw': 3}))
-    c.add_inter(Interrupteur('Sapin de Noel', devant_maison_on, devant_maison_off, {'s': s, 'chan': 'C', 'sw': 2}))
+    c = Controller(None, v)
+    c.add_inter(Interrupteur('Lampe Extérieur', devant_maison_on, devant_maison_off, {'chan': 'C', 'sw': 3}))
+    c.add_inter(Interrupteur('Sapin de Noel', devant_maison_on, devant_maison_off, {'chan': 'C', 'sw': 2}))
     print c.get_switch_list_view()
     c.start()
