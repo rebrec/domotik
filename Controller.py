@@ -74,7 +74,7 @@ if __name__ == '__main__':
     v = WebView(8080)
     c = Controller(None, v)
     c.add_inter(InterrupteurOnOff(name='Lampe Extérieur', chan='C', sw=3))
-    c.add_inter(Minuterie(name='Minuterie Lampe Extérieur', chan='C', sw=3, press_action='on', timer_delay=5, timer_autostart=True))
+    c.add_inter(Minuterie(name='Minuterie Lampe Extérieur', chan='C', sw=3, press_action='on', timer_delay=240, timer_autostart=True))
     c.add_inter(InterrupteurOnOff(name='Sapin de Noel', chan='C', sw=2))
     print c.get_switch_list_view()
     c.start()
