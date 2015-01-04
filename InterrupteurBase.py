@@ -18,6 +18,7 @@ class InterrupteurBase(object):
         self.caption = name
         self.chan = chan
         self.sw = sw
+        self.on_off = on_off
         #self.type = type
         self.func_cmd_on = func_cmd_on
         self.func_cmd_off = func_cmd_off

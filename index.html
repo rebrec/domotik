@@ -11,15 +11,20 @@
         <script type="text/javascript">
             $arrSwitch = [
             {% for switch in get_switch_list_view %}
-                {'name': '{{ switch[0] }}', 'caption': '{{ switch[1] }}' },
+                {'name': '{{ switch[0] }}', 'caption': '{{ switch[1] }}' , 'on_off': '{{ switch[2] }}' },
             {% end %}
             ];
             $().ready(function(){
                 $.each($arrSwitch, function(index, sw){
-
                     $tag  = '';
                     $tag += '<h1>' + sw.caption + '</h1>';
-                    $tag += '<div class="btn-group btn-toggle" data-sensor="' + sw.name + '">';
+                    if (sw.on_off == 'True') {
+                        $tag += '<div class="btn-group btn-toggle" data-sensor="' + sw.name + '">';
+                    } else {
+                        $tag += '<div class="btn-group btn-timer" data-sensor="' + sw.name + '">';
+
+                    }
+
                     $tag += '    <button class="' + sw.name + ' btn btn-lg btn-default">ON</button>';
                     $tag += '    <button class="' + sw.name + ' btn btn-lg btn-primary active">OFF</button>';
                     $tag += '</div>';
@@ -41,6 +46,20 @@
                         );
                 });
 
+
+                $('.btn-timer').click(function() {
+                    //$(this).find('.btn').toggleClass('active');
+                    //$(this).find('.btn').toggleClass('btn-primary');
+                    //$(this).find('.btn').toggleClass('btn-default');
+                    $sensor = $(this).data("sensor");
+
+                    $.get(
+                        'inter/set/?name=' + $sensor + '&cmd=press', // Le fichier cible côté serveur.
+                        'false', // Nous utilisons false, pour dire que nous n'envoyons pas de données.
+                        function (state){},
+                        'json' // Format des données reçues.
+                        );
+                });
             });
 
         </script>

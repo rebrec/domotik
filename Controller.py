@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
-from Communicator import SerialCommunicator
-from Interrupteur import Interrupteur
+
+from InterrupteurOnOff import InterrupteurOnOff
+from Minuterie import Minuterie
 from View import WebView
 from subprocess import call
 import os
@@ -28,7 +29,7 @@ class Controller:
         return self.switches.__getitem__(l.index(name))
 
     def get_switch_list_view(self):
-        return  [(switch.name, switch.caption) for switch in self.switches]
+        return  [(switch.name, switch.caption, switch.on_off) for switch in self.switches]
 
 
 
@@ -37,7 +38,8 @@ class Controller:
         if   cmd.lower() == 'on':       self.get_switch(name).set_on()
         elif cmd.lower() == 'off':      self.get_switch(name).set_off()
         elif cmd.lower() == 'toggle':   self.get_switch(name).toggle()
-        return { 'result': 'done'}
+        elif cmd.lower() == 'press':   self.get_switch(name).press()
+        return { 'result': 'done' }
 
     def get_inter(self, name, all):
         if all:
@@ -71,7 +73,8 @@ if __name__ == '__main__':
     #s = SerialCommunicator('/dev/ttyUSB0', 9600, 3, 1, True)
     v = WebView(8080)
     c = Controller(None, v)
-    c.add_inter(Interrupteur('Lampe Extérieur', devant_maison_on, devant_maison_off, {'chan': 'C', 'sw': 3}))
-    c.add_inter(Interrupteur('Sapin de Noel', devant_maison_on, devant_maison_off, {'chan': 'C', 'sw': 2}))
+    c.add_inter(InterrupteurOnOff(name='Lampe Extérieur', chan='C', sw=3))
+    c.add_inter(Minuterie(name='Minuterie Lampe Extérieur', chan='C', sw=3, press_action='on', timer_delay=5, timer_autostart=True))
+    c.add_inter(InterrupteurOnOff(name='Sapin de Noel', chan='C', sw=2))
     print c.get_switch_list_view()
     c.start()
