@@ -5,7 +5,7 @@ import time
   
   
 class ResetableTimer(object):
-    def __init__(self, delay, target, args=[], kwargs={}, auto_start=True):
+    def __init__(self, delay, target, auto_start=True, *args, **kwargs):
         self._target = target
         self._args = args 
         self._kwargs = kwargs 
