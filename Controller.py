@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/home/pi/projets/domotik/venv/bin/python
 # -*- coding:utf-8 -*-
 
 from InterrupteurOnOff import InterrupteurOnOff
