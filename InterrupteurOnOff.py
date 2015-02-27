@@ -15,13 +15,13 @@ class InterrupteurOnOff(InterrupteurBase):
 
     def on(self, chan="Z", sw=100, *args, **kwargs):
         params = 'I {0} {1} {2}'.format(chan, sw, '1')
-        cmd = "{0}/send {1}".format(os.path.dirname(os.path.realpath('__file__')), params)
+        cmd = "{0}/send {1}".format(os.path.dirname(os.path.abspath('__file__')), params)
         print "Going to send command : {0}".format(params)
         call([cmd], shell=True)
 
     def off(self, chan="Z", sw=100, *args, **kwargs):
         params = 'I {0} {1} {2}'.format(chan, sw, '0')
-        cmd = "{0}/send {1}".format(os.path.dirname(os.path.realpath('__file__')), params)
+        cmd = "{0}/send {1}".format(os.path.dirname(os.path.abspath('__file__')), params)
         print "Going to send command : {0}".format(params)
         call([cmd], shell=True)
 
