@@ -3,6 +3,7 @@ from subprocess import call
 import os
 from InterrupteurBase import InterrupteurBase
 import time
+import sys
 
 
 class Minuterie(InterrupteurBase):
@@ -20,12 +21,14 @@ class Minuterie(InterrupteurBase):
         params = 'I {0} {1} {2}'.format(chan, sw, '1')
         cmd = "{0}/send {1}".format(os.path.dirname(os.path.abspath('__file__')), params)
         print "Going to send command : {0}".format(params)
+        sys.stdout.flush()
         call([cmd], shell=True)
 
     def off(self, chan="Z", sw=100, *args, **kwargs):
         params = 'I {0} {1} {2}'.format(chan, sw, '0')
         cmd = "{0}/send {1}".format(os.path.dirname(os.path.abspath('__file__')), params)
         print "Going to send command : {0}".format(params)
+        sys.stdout.flush()
         call([cmd], shell=True)
 
 

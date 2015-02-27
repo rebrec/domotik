@@ -3,7 +3,7 @@
 
 import tornado.ioloop
 import tornado.web
-
+import sys
 
 class GetInterHandler(tornado.web.RequestHandler):
     def initialize(self, controller):
@@ -36,5 +36,6 @@ class DefaultHandler(tornado.web.RequestHandler):
 
     def get(self):
         print "REQUETE MAIN"
+        sys.stdout.flush()
         get_switch_list_view = self.controller.get_switch_list_view()
         self.render("index.html", get_switch_list_view=get_switch_list_view )

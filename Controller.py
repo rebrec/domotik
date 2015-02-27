@@ -5,7 +5,7 @@ import json
 from InterrupteurOnOff import InterrupteurOnOff
 from Minuterie import Minuterie
 from View import WebView
-from subprocess import call
+import sys
 import os
 
 import re
@@ -18,6 +18,7 @@ class Controller:
         self.view = view
         self.view.add_controller(self)
         print "Controller Init"
+        sys.stdout.flush()
 
     def start(self):
         self.view.start()
@@ -68,5 +69,7 @@ if __name__ == '__main__':
             c.add_inter(Minuterie(**inter['param']))
         else:
             print "Type d'interrupteur inconnu : %s" % inter['type']
+            sys.stdout.flush()
     print c.get_switch_list_view()
+    sys.stdout.flush()
     c.start()

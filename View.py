@@ -6,6 +6,7 @@ import tornado.ioloop
 import tornado.web
 from WebHandlers import DefaultHandler, GetInterHandler, SetInterHandler
 import os
+import sys
 
 class WebView(object):
     def __init__(self, port=8888, controller = None):
@@ -33,6 +34,7 @@ class WebView(object):
 
     def start(self):
         print "Starting View"
+        sys.stdout.flush()
         tornado.ioloop.IOLoop.instance().start()
 
 
