@@ -25,6 +25,7 @@ echo "Création du fichier de configuration de $PROJECTNAME"
 
 cat << EOF > $PROJECTNAME.conf
 [program:$PROJECTNAME]
+redirect_stderr=true
 command=$PROJECTPATH/$VENVNAME/bin/python $PROJECTPATH/Controller.py
 user=$USER
 
