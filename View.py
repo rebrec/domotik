@@ -19,7 +19,7 @@ class WebView(object):
     def init_webapp(self):
         settings = {
             'debug': True,
-            'static_path': os.path.join(os.getcwd(), 'static'),
+            'static_path': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static'),
         }
         handlers = [
                         (r"/", DefaultHandler, dict(controller=self.controller)),

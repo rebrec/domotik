@@ -1,4 +1,4 @@
-
+# -*- coding:utf-8 -*-
 from subprocess import call
 import os
 from InterrupteurBase import InterrupteurBase

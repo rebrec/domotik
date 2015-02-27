@@ -1,6 +1,7 @@
 #!/home/pi/projets/domotik/venv/bin/python
 # -*- coding:utf-8 -*-
 
+import json
 from InterrupteurOnOff import InterrupteurOnOff
 from Minuterie import Minuterie
 from View import WebView
@@ -52,29 +53,20 @@ class Controller:
 
 
 if __name__ == '__main__':
-    def devant_maison_on(array_args):
-        chan = array_args['chan']
-        sw = array_args['sw']
-        params = 'I {0} {1} {2}'.format(chan, sw, '1')
-        cmd = "{0}/send {1}".format(os.path.dirname(os.path.realpath(__file__)), params)
-        print "Going to launch {0} with parameters : {1}".format(cmd, params)
-        call([cmd], shell=True)
-        #s.send_while('I {0} {1} {2}\r'.format(chan, sw, '1'), '.')
-    def devant_maison_off(array_args):
-        chan = array_args['chan']
-        sw = array_args['sw']
-        params = 'I {0} {1} {2}'.format(chan, sw, '0')
-        cmd = "{0}/send {1}".format(os.path.dirname(os.path.realpath(__file__)), params)
-        print "Going to launch {0} with parameters : {1}".format(cmd, params)
-        call([cmd], shell=True)
+    # Chargement de la configuration
+    config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json')
+    with open(config_file) as json_data_file:
+        configuration = json.load(json_data_file)
 
-        #s.send_while('I {0} {1} {2}\r'.format(chan, sw, '0'), '.')
-
-    #s = SerialCommunicator('/dev/ttyUSB0', 9600, 3, 1, True)
-    v = WebView(8080)
+    v = WebView(configuration['listen'])
     c = Controller(None, v)
-    c.add_inter(InterrupteurOnOff(name='Lampe Extérieur', chan='C', sw=3))
-    c.add_inter(Minuterie(name='Minuterie Lampe Extérieur', chan='C', sw=3, press_action='on', timer_delay=240, timer_autostart=True))
-    c.add_inter(InterrupteurOnOff(name='Sapin de Noel', chan='C', sw=2))
+
+    for inter in configuration['interrupteurs']:
+        if inter['type'] == 'on/off':
+            c.add_inter(InterrupteurOnOff(**inter['param']))
+        elif inter['type'] == 'minuterie':
+            c.add_inter(Minuterie(**inter['param']))
+        else:
+            print "Type d'interrupteur inconnu : %s" % inter['type']
     print c.get_switch_list_view()
     c.start()
