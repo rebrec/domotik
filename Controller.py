@@ -33,6 +33,29 @@ class Controller:
     def get_switch_list_view(self):
         return  [(switch.name, switch.caption, switch.on_off) for switch in self.switches]
 
+    def get_config(self, name):
+        if name == 'current': # seul cas pris en charge actuellement
+            config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json')
+            with open(config_file) as json_data_file:
+                configuration = json.load(json_data_file)
+            return configuration
+        else:
+            return None
+
+    def set_config(self, name, config_val):
+        if name == 'current': # seul cas pris en charge actuellement
+            config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json')
+            try:
+                configuration = json.loads(config_val)
+                dump=json.dumps(configuration, indent=4)
+                f = open(config_file, 'w')
+                f.write(dump)
+                f.close()
+                return { 'result': 'done' }
+            except Exception:
+                return { 'result': 'error' }
+        else:
+            return { 'result': 'error' }
 
 
 

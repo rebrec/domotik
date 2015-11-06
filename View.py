@@ -4,7 +4,7 @@
 
 import tornado.ioloop
 import tornado.web
-from WebHandlers import DefaultHandler, GetInterHandler, SetInterHandler
+from WebHandlers import *
 import os
 import sys
 
@@ -24,6 +24,8 @@ class WebView(object):
         }
         handlers = [
                         (r"/index.html", DefaultHandler, dict(controller=self.controller)),
+                        (r"/config/get/.*", GetConfigHandler, dict(controller=self.controller)),
+                        (r"/config/set/.*", SetConfigHandler, dict(controller=self.controller)),
                         (r"/inter/get/.*", GetInterHandler, dict(controller=self.controller)),
                         (r"/inter/set/.*", SetInterHandler, dict(controller=self.controller)),
                         (r'/static/(.*)', tornado.web.StaticFileHandler, dict(path=settings['static_path'])),

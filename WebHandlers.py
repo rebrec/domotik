@@ -27,6 +27,28 @@ class SetInterHandler(tornado.web.RequestHandler):
         res = self.controller.set_inter(name, cmd)
         self.write(res)
 
+class GetConfigHandler(tornado.web.RequestHandler):
+    def initialize(self, controller):
+        self.controller = controller
+
+    def get(self):
+        name = self.get_argument("name", "current", True)
+        config = self.controller.get_config(name)
+        self.render("config.html", json_config=config, name=name )
+
+
+class SetConfigHandler(tornado.web.RequestHandler):
+    def initialize(self, controller):
+        self.controller = controller
+
+    def post(self):
+        name = self.get_argument("name", "current", True)
+        config_val = self.get_argument("config_val", None, True)
+        print "name %s" % name
+        print "val %s" % config_val
+        res = self.controller.set_config(name, config_val)
+        self.write(res)
+
 
 
 

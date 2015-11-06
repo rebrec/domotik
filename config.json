@@ -1,32 +1,32 @@
 {
-    "listen": 8080,
     "interrupteurs": [
         {
-            "type": "on/off",
+            "type": "on/off", 
             "param": {
-                "name": "Lampe Extérieur",
-                "chan": "C",
-                "sw": 3
+                "chan": "C", 
+                "sw": 3, 
+                "name": "Lampe Ext\u00e9rieur"
             }
-        },
+        }, 
         {
-            "type": "minuterie",
+            "type": "minuterie", 
             "param": {
-                "name": "Minuterie Lampe Extérieur",
-                "chan": "C",
-                "sw": 3,
-                "press_action": "on",
-                "timer_delay": 240,
+                "timer_delay": 240, 
+                "name": "Minuterie Lampe Ext\u00e9rieur", 
+                "sw": 3, 
+                "chan": "C", 
+                "press_action": "on", 
                 "timer_autostart": true
             }
-        },
+        }, 
         {
-            "type": "on/off",
+            "type": "on/off", 
             "param": {
-                "name": "Sapin de Noel",
-                "chan": "C",
-                "sw": 2
+                "chan": "C", 
+                "sw": 2, 
+                "name": "Sapin de Noel"
             }
         }
-    ]
+    ], 
+    "listen": 8082
 }
