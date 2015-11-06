@@ -6,10 +6,10 @@ import time
 import sys
 
 
-class Minuterie(InterrupteurBase):
+class MinuterieSansFils(InterrupteurBase):
     def __init__(self, name, press_action='on', timer_delay=1,
                  timer_autostart=False, *args, **kwargs):
-        super(Minuterie, self).__init__(name, on_off=False,
+        super(MinuterieSansFils, self).__init__(name, on_off=False,
                                         press_action=press_action,
                                         func_cmd_on=self.on,
                                         func_cmd_off=self.off,
@@ -36,7 +36,7 @@ class Minuterie(InterrupteurBase):
 
 if __name__ == '__main__':
     print "Creation d'une minuterie de 5 secondes..."
-    m = Minuterie(name='Ma Minuterie', chan='B', sw=2, timer_delay=5, timer_autostart=True, press_action='off' )
+    m = MinuterieSansFils(name='Ma MinuterieSansFils', chan='B', sw=2, timer_delay=5, timer_autostart=True, press_action='off' )
     print ".... attente 8 secondes..."
     time.sleep(8)
     print "Relance du Timer"
