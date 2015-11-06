@@ -3,7 +3,7 @@
 
 import json
 from InterrupteurOnOff import InterrupteurOnOff
-from Minuterie import Minuterie
+from MinuterieSansFils import MinuterieSansFils
 from View import WebView
 import sys
 import os
@@ -89,7 +89,7 @@ if __name__ == '__main__':
         if inter['type'] == 'on/off':
             c.add_inter(InterrupteurOnOff(**inter['param']))
         elif inter['type'] == 'minuterie':
-            c.add_inter(Minuterie(**inter['param']))
+            c.add_inter(MinuterieSansFils(**inter['param']))
         else:
             print "Type d'interrupteur inconnu : %s" % inter['type']
             sys.stdout.flush()
