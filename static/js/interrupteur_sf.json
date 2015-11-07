@@ -1,0 +1,40 @@
+{
+    "title": "Interrupteur",
+    "type": "object",
+    "id": "onoff",
+    "format": "table",
+    "properties": {
+        "type": {
+            "type": "string",
+            "enum": [
+                "on/off"
+            ],
+            "default": "on/off"
+        },
+        "param": {
+            "type": "object",
+            "format": "table",
+            "properties": {
+                "sw": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 3
+                },
+                "chan": {
+                    "type": "string",
+                    "enum": [
+                        "A",
+                        "B",
+                        "C",
+                        "D"
+                    ],
+                    "default": "A"
+                },
+                "name": {
+                    "type": "string",
+                    "default": "Choissiez un nom"
+                }
+            }
+        }
+    }
+}

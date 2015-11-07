@@ -1,0 +1,56 @@
+{
+    "title": "Minuterie",
+    "type": "object",
+    "id": "minuterie",
+    "properties": {
+        "type": {
+            "type": "string",
+            "enum": [
+                "minuterie"
+            ],
+            "default": "minuterie"
+        },
+        "param": {
+            "type": "object",
+            "format": "table",
+            "properties": {
+                "sw": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 3
+                },
+                "chan": {
+                    "type": "string",
+                    "enum": [
+                        "A",
+                        "B",
+                        "C",
+                        "D"
+                    ],
+                    "default": "A"
+                },
+                "name": {
+                    "type": "string",
+                    "default": "Choissiez un nom"
+                },
+                "timer_delay": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                },
+                "press_action": {
+                    "type": "string",
+                    "enum": [
+                        "on",
+                        "off"
+                    ],
+                    "default": "on"
+                },
+                "timer_autostart": {
+                    "type": "boolean",
+                    "default": true
+                }
+            }
+        }
+    }
+}

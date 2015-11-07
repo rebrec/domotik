@@ -27,6 +27,19 @@ class SetInterHandler(tornado.web.RequestHandler):
         res = self.controller.set_inter(name, cmd)
         self.write(res)
 
+class ReloadInterHandler(tornado.web.RequestHandler):
+    def initialize(self, controller):
+        self.controller = controller
+
+    def post(self):
+        # name = self.get_argument("name", "current", True)
+        # config_val = self.get_argument("config_val", None, True)
+        # print "name %s" % name
+        # print "val %s" % config_val
+        print "reload-"
+        res = self.controller.reload_config()
+        self.write(res)
+
 class GetConfigHandler(tornado.web.RequestHandler):
     def initialize(self, controller):
         self.controller = controller

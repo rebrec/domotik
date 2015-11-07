@@ -33,6 +33,14 @@ class Controller:
     def get_switch_list_view(self):
         return  [(switch.name, switch.caption, switch.on_off) for switch in self.switches]
 
+    def reload_config(self):
+        try:
+            os.execl(sys.executable, *([sys.executable]+sys.argv))
+            print "reload"
+            return { 'result': 'done' } # on n'ira jamais jusque la...
+        except Exception:
+            return { 'result': 'error' }
+
     def get_config(self, name):
         if name == 'current': # seul cas pris en charge actuellement
             config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json')
