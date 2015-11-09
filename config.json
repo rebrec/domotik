@@ -26,6 +26,13 @@
                 "sw": 2, 
                 "name": "Sapin de Noel"
             }
+        },
+        {
+            "type": "on/off_filaire",
+            "param": {
+                "sw": 1,
+                "name": "Relais 1"
+            }
         }
     ], 
     "listen": 8082
