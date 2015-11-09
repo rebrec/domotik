@@ -78,12 +78,20 @@ $().ready(function() {
                     "items": {
 
                         "headerTemplate": "{{i}} - {{self.param.name}}",
-                        oneOf: [{
-                            $ref: "/static/js/interrupteur_sf.json",
+                        oneOf: [
+                        {
+                            $ref: "../../static/js/interrupteur_filaire.json",
+                            title: "Interrupteur Filaire"
+                        }, {
+                            $ref: "../../static/js/minuterie_filaire.json",
+                            title: "Minutterie Filaire"
+                        },
+                        {
+                            $ref: "../../static/js/interrupteur_sans_fils.json",
                             title: "Interrupteur S/F"
                         }, {
-                            $ref: "/static/js/minuterie.json",
-                            title: "Minutterie"
+                            $ref: "../../static/js/minuterie_sans_fils.json",
+                            title: "Minutterie S/F"
                         }]
                     }
 

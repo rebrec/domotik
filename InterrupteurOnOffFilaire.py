@@ -22,28 +22,36 @@ class InterrupteurOnOffFilaire(InterrupteurBase):
     def on(self, sw=100, *args, **kwargs):
         gpio = self.relay_to_gpio[self.sw]
         print 'Relay {0} : GPIO{1} = {2}'.format(sw, gpio, '1')
-        GPIO.output(gpio, GPIO.HIGH)
+        GPIO.output(gpio, GPIO.LOW) # inverted logic 0V = Relay On
 
     def off(self, chan="Z", sw=100, *args, **kwargs):
         gpio = self.relay_to_gpio[self.sw]
-        print 'Relay {0} : GPIO{1} = {2}'.format(sw, gpio, '1')
-        GPIO.output(gpio, GPIO.LOW)
+        print 'Relay {0} : GPIO{1} = {2}'.format(sw, gpio, '0')
+        GPIO.output(gpio, GPIO.HIGH) # inverted logic 3.3V = Relay Off
 
 
 
 
 if __name__ == '__main__':
+    import time
     relay_to_gpio = {1: 10, 2: 24, 3: 23, 4: 22, 5: 27, 6: 18, 7: 15, 8: 14}
 
     i = InterrupteurOnOffFilaire(name='Mon OnOff', sw=1, relay_to_gpio=relay_to_gpio)
+    i.set_off()
+    print "etat de i : {}".format(i.state)
+    time.sleep(1)
     print "essaie d'allumage"
     i.set_on()
     print "etat de i : {}".format(i.state)
+    time.sleep(3)
     i.set_on()
     print "etat de i : {}".format(i.state)
+    time.sleep(3)
+    # inverted logic 0V = Relay Onprint "etat de i : {}".format(i.state)
+    time.sleep(3)
     i.set_off()
     print "etat de i : {}".format(i.state)
-    i.set_off()
-    print "etat de i : {}".format(i.state)
+    time.sleep(3)
     i.toggle()
     print "etat de i : {}".format(i.state)
+    time.sleep(3)

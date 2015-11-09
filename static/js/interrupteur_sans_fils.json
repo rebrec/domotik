@@ -1,15 +1,13 @@
 {
-    "title": "Interrupteur",
+    "title": "Interrupteur S/F",
     "type": "object",
-    "id": "onoff",
-    "format": "table",
     "properties": {
         "type": {
             "type": "string",
             "enum": [
-                "on/off"
+                "on/off_sans_fils"
             ],
-            "default": "on/off"
+            "default": "on/off_sans_fils"
         },
         "param": {
             "type": "object",

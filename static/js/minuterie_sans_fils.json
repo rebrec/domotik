@@ -1,14 +1,13 @@
 {
-    "title": "Minuterie",
+    "title": "Minuterie S/F",
     "type": "object",
-    "id": "minuterie",
     "properties": {
         "type": {
             "type": "string",
             "enum": [
-                "minuterie"
+                "minuterie_sans_fils"
             ],
-            "default": "minuterie"
+            "default": "minuterie_sans_fils"
         },
         "param": {
             "type": "object",
