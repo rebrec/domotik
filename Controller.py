@@ -100,9 +100,9 @@ if __name__ == '__main__':
     c = Controller(None, v)
 
     for inter in configuration['interrupteurs']:
-        if inter['type'] == 'on/off_sf':
+        if inter['type'] == 'on/off_sans_fils':
             c.add_inter(InterrupteurOnOffSansFils(**inter['param']))
-        elif inter['type'] == 'minuterie_sf':
+        elif inter['type'] == 'minuterie_sans_fils':
             c.add_inter(MinuterieSansFils(**inter['param']))
         elif inter['type'] == 'on/off_filaire':
             c.add_inter(InterrupteurOnOffFilaire(relay_to_gpio=configuration['relay_to_gpio'], **inter['param']))
