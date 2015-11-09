@@ -10,7 +10,12 @@ La "box" est configurée pour relayer les connections sur le port 80 vers le RPi
 
 Installation
 ------------
+Installer RPi.GPIO
+apt-get install python-rpi.gpio
+pip install RPi.GPIO
+
 Après avoir cloné le dépot, lancer domotik.py
+
 
 Configuration
 -------------
