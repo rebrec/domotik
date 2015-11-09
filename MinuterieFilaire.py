@@ -4,7 +4,8 @@ import os
 from InterrupteurBase import InterrupteurBase
 import time
 import sys
-import RPi.GPIO as GPIO
+if os.uname()[4][:3] == 'arm':
+    import RPi.GPIO as GPIO
 
 
 class MinuterieFilaire(InterrupteurBase):
@@ -19,19 +20,23 @@ class MinuterieFilaire(InterrupteurBase):
                                         *args, **kwargs)
         # for now, we use the SW number (of wireless power plugs) as the relay number to command for wired switchs (var "SW")
         self.relay_to_gpio = relay_to_gpio
-        GPIO.setmode(GPIO.BCM)
+        if os.uname()[4][:3] == 'arm':
+            GPIO.setmode(GPIO.BCM)
         print "Setting GPIO{0} as output for relay {1}".format(self.relay_to_gpio[self.sw], self.sw)
-        GPIO.setup(self.relay_to_gpio[self.sw], GPIO.OUT) # configure as output the relay channel
+        if os.uname()[4][:3] == 'arm':
+            GPIO.setup(self.relay_to_gpio[self.sw], GPIO.OUT) # configure as output the relay channel
 
     def on(self, sw=100, *args, **kwargs):
         gpio = self.relay_to_gpio[self.sw]
         print 'Relay {0} : GPIO{1} = {2}'.format(sw, gpio, '1')
-        GPIO.output(gpio, GPIO.LOW) # inverted logic 0V = Relay On
+        if os.uname()[4][:3] == 'arm':
+            GPIO.output(gpio, GPIO.LOW) # inverted logic 0V = Relay On
 
     def off(self, chan="Z", sw=100, *args, **kwargs):
         gpio = self.relay_to_gpio[self.sw]
         print 'Relay {0} : GPIO{1} = {2}'.format(sw, gpio, '0')
-        GPIO.output(gpio, GPIO.HIGH) # inverted logic 3.3V = Relay Off
+        if os.uname()[4][:3] == 'arm':
+            GPIO.output(gpio, GPIO.HIGH) # inverted logic 3.3V = Relay Off
 
 
 
