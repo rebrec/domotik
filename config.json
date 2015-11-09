@@ -1,7 +1,7 @@
 {
     "interrupteurs": [
         {
-            "type": "on/off", 
+            "type": "on/off_sans_fils",
             "param": {
                 "chan": "C", 
                 "sw": 3, 
@@ -9,7 +9,7 @@
             }
         }, 
         {
-            "type": "minuterie", 
+            "type": "minuterie_sans_fils",
             "param": {
                 "timer_delay": 240, 
                 "name": "Minuterie Lampe Ext\u00e9rieur", 
@@ -20,7 +20,7 @@
             }
         }, 
         {
-            "type": "on/off", 
+            "type": "on/off_sans_fils",
             "param": {
                 "chan": "C", 
                 "sw": 2, 
