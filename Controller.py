@@ -2,7 +2,9 @@
 # -*- coding:utf-8 -*-
 
 import json
-from InterrupteurOnOff import InterrupteurOnOff
+from InterrupteurOnOffFilaire import InterrupteurOnOffFilaire
+from InterrupteurOnOffSansFils import InterrupteurOnOffSansFils
+from MinuterieFilaire import MinuterieFilaire
 from MinuterieSansFils import MinuterieSansFils
 from View import WebView
 import sys
@@ -90,14 +92,22 @@ if __name__ == '__main__':
     with open(config_file) as json_data_file:
         configuration = json.load(json_data_file)
 
+    #configuré en static pour le moment
+    relay_to_gpio = {1: 10, 2: 24, 3: 23, 4: 22, 5: 27, 6: 18, 7: 15, 8: 14}
+    configuration['relay_to_gpio'] = relay_to_gpio
+
     v = WebView(configuration['listen'])
     c = Controller(None, v)
 
     for inter in configuration['interrupteurs']:
-        if inter['type'] == 'on/off':
-            c.add_inter(InterrupteurOnOff(**inter['param']))
-        elif inter['type'] == 'minuterie':
+        if inter['type'] == 'on/off_sf':
+            c.add_inter(InterrupteurOnOffSansFils(**inter['param']))
+        elif inter['type'] == 'minuterie_sf':
             c.add_inter(MinuterieSansFils(**inter['param']))
+        elif inter['type'] == 'on/off_filaire':
+            c.add_inter(InterrupteurOnOffFilaire(relay_to_gpio=configuration['relay_to_gpio'], **inter['param']))
+        elif inter['type'] == 'minuterie_filaire':
+            c.add_inter(MinuterieFilaire(relay_to_gpio=configuration['relay_to_gpio'], **inter['param']))
         else:
             print "Type d'interrupteur inconnu : %s" % inter['type']
             sys.stdout.flush()
