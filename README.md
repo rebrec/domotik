@@ -19,4 +19,4 @@ Après avoir cloné le dépot, lancer domotik.py
 
 Configuration
 -------------
-Section a renseigner
+Section a renseigner.
