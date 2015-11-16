@@ -14,8 +14,9 @@ import re
 
 
 class Controller:
-    def __init__(self, communicator, view):
+    def __init__(self, communicator, view, configuration):
         self.switches = []
+        self.configuration=configuration
         self.communicator = communicator
         self.view = view
         self.view.add_controller(self)
@@ -97,7 +98,7 @@ if __name__ == '__main__':
     configuration['relay_to_gpio'] = relay_to_gpio
 
     v = WebView(configuration['listen'])
-    c = Controller(None, v)
+    c = Controller(None, v, configuration)
 
     for inter in configuration['interrupteurs']:
         if inter['type'] == 'on/off_sans_fils':
