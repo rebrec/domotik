@@ -74,3 +74,14 @@ class DefaultHandler(tornado.web.RequestHandler):
         sys.stdout.flush()
         get_switch_list_view = self.controller.get_switch_list_view()
         self.render("index.html", get_switch_list_view=get_switch_list_view )
+
+
+
+class ErrorHandler(tornado.web.RequestHandler):
+    def initialize(self, controller):
+        self.controller = controller
+
+    def get(self):
+        print "ERROR MAIN"
+        sys.stdout.flush()
+        self.render("error.html")

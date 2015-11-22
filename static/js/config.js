@@ -60,7 +60,6 @@ $().ready(function() {
         // The schema for the editor
         schema: {
             "type": "object",
-            "id":"z",
             "properties": {
                 "listen": {
                     "type": "integer",
@@ -68,6 +67,11 @@ $().ready(function() {
                     "minimum": 1,
                     "maximum": 65535,
                     "default":"80"
+                },
+                "secure_url": {
+                    "type": "string",
+                    "title": "Prefixe de l'url",
+                    "default":"a8KFe81260mvn13sg678412nsqpA"
 
                 },
                 "interrupteurs": {
