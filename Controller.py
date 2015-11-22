@@ -96,7 +96,10 @@ if __name__ == '__main__':
     #configuré en static pour le moment
     relay_to_gpio = {1: 10, 2: 24, 3: 23, 4: 22, 5: 27, 6: 18, 7: 15, 8: 14}
     configuration['relay_to_gpio'] = relay_to_gpio
-
+    if 'listen' not in configuration.keys():
+        configuration["listen"] = 80
+    if 'secure_url' not in configuration.keys():
+        configuration["secure_url"] =''
     v = WebView(configuration['listen'],configuration["secure_url"])
     c = Controller(None, v, configuration)
 
