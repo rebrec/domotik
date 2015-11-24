@@ -16,8 +16,11 @@ echo "Ce compte doit posséder les droits d'accès pour emettre des trammes 443M
 echo "également être à même de lire et d'exécuter les scripts python de ce projet."
 echo "###############################"
 
-
-read -p "Nom du compte utilisateur :" USER
+command=$1
+case $command in
+"silent") USER=$2;;
+*) read -p "Nom du compte utilisateur :" USER;;
+esac
 
 echo ""
 echo "Supervisor lancera le $PROJECT_PATH/Controller.py avec l'utilisateur $USER"
