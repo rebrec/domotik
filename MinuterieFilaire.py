@@ -25,7 +25,8 @@ class MinuterieFilaire(InterrupteurBase):
         print "Setting GPIO{0} as output for relay {1}".format(self.relay_to_gpio[self.sw], self.sw)
         if os.uname()[4][:3] == 'arm':
             GPIO.setup(self.relay_to_gpio[self.sw], GPIO.OUT) # configure as output the relay channel
-
+            GPIO.output(self.relay_to_gpio[self.sw],GPIO.LOW)
+    
     def on(self, sw=100, *args, **kwargs):
         gpio = self.relay_to_gpio[self.sw]
         print 'Relay {0} : GPIO{1} = {2}'.format(sw, gpio, '1')
